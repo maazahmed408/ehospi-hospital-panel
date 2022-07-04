@@ -1,187 +1,235 @@
-import React from 'react'
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import React from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import {  faHome, faUserDoctor, faHospital, faUserFriends,  faBookMedical, faMoneyCheck, faAdd } from '@fortawesome/free-solid-svg-icons'
-//import CIcon from '@coreui/icons-react'
-// import {LocalHospitalIcon} from '@mui/icons-material/LocalHospital';
-/*import {
-  cilHome,
-  cibPaypal,
-  cilHospital,
-  cilStar,
-} from '@coreui/icons'*/
-//import { CNavGroup, CNavItem, CNavTitle } from '@coreui/react'
-import { CNavGroup, CNavItem, CNavTitle } from '@coreui/react'
+import {
+  faHome,
+  faUser,
+  faList,
+  faHospital,
+  faBookMedical,
+  faMoneyCheck,
+  faAdd,
+  faBed,
+} from '@fortawesome/free-solid-svg-icons';
+
+import { CNavGroup, CNavItem } from '@coreui/react';
 
 const _nav = [
   {
-    component: CNavItem ,
+    component: CNavItem,
     name: 'Dashboard',
     to: '/dashboard',
-    icon: <FontAwesomeIcon color='bluelight' icon={faHome}  style={{margin: "10px"}}/>,
-    
-    //icon:  'fa-solid fa-house',
-    //icon: <LocalHospitalIcon />,
-
-   /* badge: {
-      color: 'info',
-      text: 'NEW',
-    },*/
+    icon: (
+      <FontAwesomeIcon
+        color="bluelight"
+        icon={faHome}
+        style={{ margin: '10px' }}
+      />
+    ),
   },
 
-  {
-    component: CNavGroup,
-    name: 'Doctor',
-    to: '/Doctor',
-    icon: <FontAwesomeIcon icon={faUserDoctor} style={{margin: "10px"}} />,
-    //icon: <FontAwesomeIcon icon="fa-solid fa-user-doctor-hair" />,
-  //  icon: <LocalHospitalIcon />,
-    items: [
-      {
-        component: CNavItem,
-        name: 'All Doctor',
-        to: '/Doctor/All Doctor',
-        icon: <FontAwesomeIcon icon={faUserDoctor} />,
-      },
-      {
-        component: CNavItem,
-        name: 'Add Doctor',
-        to: '/Doctor/Add Doctor',
-        icon: <FontAwesomeIcon icon={faAdd} />,
-      },
-      
-    ],
-  },
   {
     component: CNavGroup,
     name: 'Department',
     to: '/Department',
-    icon: <FontAwesomeIcon icon={faHospital} style={{margin: "10px"}}/>,
+    icon: <FontAwesomeIcon icon={faHospital} style={{ margin: '10px' }} />,
     items: [
-      {
-        component: CNavItem,
-        name: 'All Department',
-        to: '/Department/All Department',
-      },
       {
         component: CNavItem,
         name: 'Add Department',
         to: '/Department/Add Department',
-        icon: <FontAwesomeIcon icon={faAdd} />,
+        icon: <FontAwesomeIcon icon={faAdd} style={{ margin: '10px' }} />,
       },
-     
+      {
+        component: CNavItem,
+        name: 'All Department',
+        to: '/Department/All Department',
+        icon: <FontAwesomeIcon icon={faHospital} style={{ margin: '10px' }} />,
+      },
     ],
   },
   {
     component: CNavGroup,
-    name: 'Appointment',
-    to: '/Appointment',
-    
-    icon: <FontAwesomeIcon icon={faUserDoctor}style={{margin: "10px"}} />,
+    name: 'Amenities',
+    to: '/Amenities',
+    icon: <FontAwesomeIcon icon={faMoneyCheck} style={{ margin: '10px' }} />,
     items: [
       {
         component: CNavItem,
-        name: 'Doctor schedule',
-        to: '/Appointment/Doctor schedule',
-        icon: <FontAwesomeIcon icon={faUserDoctor} />,
+        name: 'Add Amenities',
+        to: '/Amenities/Add Amenities',
+        icon: <FontAwesomeIcon icon={faUser} style={{ margin: '10px' }} />,
       },
       {
         component: CNavItem,
-        name: 'Add schedule',
-        to: '/Appointment/Add schedule',
-        icon: <FontAwesomeIcon icon={faAdd} />,
+        name: 'Amenities Price',
+        to: '/Amenities/Amenities Price',
+        icon: <FontAwesomeIcon icon={faUser} style={{ margin: '10px' }} />,
       },
-     
     ],
   },
   {
     component: CNavGroup,
-    name: 'Patient',
-    to: '/Patient',
-    icon: <FontAwesomeIcon icon={faUserFriends}style={{margin: "10px"}} />,
-    // icon: <LocalHospitalIcon />,
+    name: 'Facilities',
+    to: '/Facilities',
+    icon: <FontAwesomeIcon icon={faMoneyCheck} style={{ margin: '10px' }} />,
     items: [
       {
         component: CNavItem,
-        name: 'Add patient',
-        to: '/Patient/Add patient',
-        icon: <FontAwesomeIcon icon={faAdd} />,
+        name: 'Add Facilities',
+        to: '/Facilities/Add Facilities',
+        icon: <FontAwesomeIcon icon={faUser} style={{ margin: '10px' }} />,
       },
       {
         component: CNavItem,
-        name: 'All patient',
-        to: '/Patient/All patient',
+        name: 'Facilities Price',
+        to: '/Facilities/Facilities Price',
+        icon: <FontAwesomeIcon icon={faUser} style={{ margin: '10px' }} />,
       },
-     
     ],
   },
   {
     component: CNavGroup,
-    name: 'Bed Booking',
-    to: '/Bed Booking',
-    icon: <FontAwesomeIcon icon={faBookMedical} style={{margin: "10px"}}/>,
-    // icon: <LocalHospitalIcon />,
+    name: 'Services',
+    to: '/Services',
+    icon: <FontAwesomeIcon icon={faMoneyCheck} style={{ margin: '10px' }} />,
     items: [
       {
         component: CNavItem,
-        name: 'Add bed',
-        to: '/Bed Booking/Add bed',
-        icon: <FontAwesomeIcon icon={faAdd} />,
+        name: 'Add Services',
+        to: '/Services/Add Services',
+        icon: <FontAwesomeIcon icon={faUser} style={{ margin: '10px' }} />,
       },
       {
         component: CNavItem,
-        name: 'All bed',
-        to: '/Bed Booking/All bed',
+        name: 'Services List',
+        to: '/Services/Services List',
+        icon: <FontAwesomeIcon icon={faUser} style={{ margin: '10px' }} />,
       },
-     
+    ],
+  },
+  {
+    component: CNavGroup,
+    name: 'Insurance',
+    to: '/Insurance',
+    icon: <FontAwesomeIcon icon={faMoneyCheck} style={{ margin: '10px' }} />,
+    items: [
+      {
+        component: CNavItem,
+        name: 'Add Insurance',
+        to: '/Insurance/Add Insurance',
+        icon: <FontAwesomeIcon icon={faUser} style={{ margin: '10px' }} />,
+      },
+      {
+        component: CNavItem,
+        name: 'Insurance List',
+        to: '/Insurance/Insurance List',
+        icon: <FontAwesomeIcon icon={faUser} style={{ margin: '10px' }} />,
+      },
+    ],
+  },
+  {
+    component: CNavGroup,
+    name: 'Bed Types',
+    to: '/Bed Types',
+    icon: <FontAwesomeIcon icon={faMoneyCheck} style={{ margin: '10px' }} />,
+    items: [
+      {
+        component: CNavItem,
+        name: 'Add Bed Type',
+        to: '/Bed Types/Add Bed Type',
+        icon: <FontAwesomeIcon icon={faUser} style={{ margin: '10px' }} />,
+      },
+      {
+        component: CNavItem,
+        name: 'Bed Type List',
+        to: '/Bed Types/Bed Type List',
+        icon: <FontAwesomeIcon icon={faUser} style={{ margin: '10px' }} />,
+      },
     ],
   },
 
   {
     component: CNavGroup,
-    name: 'Payments',
-    to: '/Payments',
-    icon: <FontAwesomeIcon icon={faMoneyCheck}style={{margin: "10px"}} />,
-    // icon: <LocalHospitalIcon />,
+    name: 'Manage Sub Admins',
+    to: '/Manage Sub Admins',
+    icon: <FontAwesomeIcon icon={faMoneyCheck} style={{ margin: '10px' }} />,
     items: [
       {
         component: CNavItem,
-        name: 'Payment',
-        to: '/Payments/Payment',
+        name: 'Add Sub Admin',
+        to: '/Manage Sub Admins/Add Sub Admin',
+        icon: <FontAwesomeIcon icon={faUser} style={{ margin: '10px' }} />,
       },
       {
         component: CNavItem,
-        name: 'Add payment',
-        to: '/Payments/Add payment',
-        icon: <FontAwesomeIcon icon={faAdd} />,
+        name: 'SubAdmins List',
+        to: '/Manage Sub Admins/SubAdmins List',
+        icon: <FontAwesomeIcon icon={faList} style={{ margin: '10px' }} />,
       },
-     
     ],
   },
 
   {
     component: CNavGroup,
-    name: ' Admin Credential',
-    // icon: <LocalHospitalIcon />,
+    name: 'Bed Bookings',
+    to: '/Bed Bookings',
+    icon: <FontAwesomeIcon icon={faBookMedical} style={{ margin: '10px' }} />,
     items: [
       {
         component: CNavItem,
-        name: 'Login',
-        to: '/login',
+        name: 'All Booking',
+        to: '/Bed Bookings/All Booking',
+        icon: <FontAwesomeIcon icon={faBed} style={{ margin: '10px' }} />,
       },
       {
         component: CNavItem,
-        name: 'Register',
-        to: '/register',
+        name: 'Pending Booking',
+        to: '/Bed Bookings/Pending Booking',
+        icon: (
+          <FontAwesomeIcon icon={faMoneyCheck} style={{ margin: '10px' }} />
+        ),
       },
       {
         component: CNavItem,
-        name: 'Forgetpassword',
-        to: '/Forgetpassword',
+        name: 'Accepted Booking',
+        to: '/Bed Bookings/Accepted Booking',
+        icon: <FontAwesomeIcon icon={faBed} style={{ margin: '10px' }} />,
+      },
+      {
+        component: CNavItem,
+        name: 'Rejected Booking',
+        to: '/Bed Bookings/Rejected Booking',
+        icon: <FontAwesomeIcon icon={faBed} style={{ margin: '10px' }} />,
+      },
+      {
+        component: CNavItem,
+        name: 'Completed Booking',
+        to: '/Bed Bookings/Completed Booking',
+        icon: <FontAwesomeIcon icon={faBed} style={{ margin: '10px' }} />,
       },
     ],
   },
-]
-       
-      
-export default _nav
+  {
+    component: CNavGroup,
+    name: 'Photos',
+    to: '/Photos',
+    icon: <FontAwesomeIcon icon={faHospital} style={{ margin: '10px' }} />,
+    items: [
+      {
+        component: CNavItem,
+        name: 'Add Photos',
+        to: '/Photos/Add Photos',
+        icon: <FontAwesomeIcon icon={faAdd} style={{ margin: '10px' }} />,
+      },
+      {
+        component: CNavItem,
+        name: 'All Photos',
+        to: '/Photos/All Photos',
+        icon: <FontAwesomeIcon icon={faHospital} style={{ margin: '10px' }} />,
+      },
+    ],
+  },
+];
+
+export default _nav;

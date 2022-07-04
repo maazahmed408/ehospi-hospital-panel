@@ -1,202 +1,109 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-//import Axios from 'axios';
-//import { object } from 'prop-types';
-import { Link } from 'react-router-dom';
-import { dashboard } from 'src/views/dashboard/Dashboard'
-//import { ToastContainer, toast } from 'react-toastify';
-// import 'react-toastify/dist/ReactToastify.css';
+import 'react-toastify/dist/ReactToastify.css';
+import image from 'src/assets/images/avatars/Bg-Login.png';
+import 'src/asset/css/main.css';
+import { baseUrl } from 'src/views/config.js/baseUrl';
+import axios from 'axios';
 
-//import image from 'src/assets/images/avatars/1.jpg';
-
-
-{/*import {
-  CButton,
-  CCard,
-  CCardBody,
-  CCardGroup,
-  CCol,
-  CContainer,
-  CForm,
-  CFormInput,
-  CInputGroup,
-  CInputGroupText,
-  CRow,
-} from '@coreui/react'
-import CIcon from '@coreui/icons-react'
-import { cilLockLocked, cilUser } from '@coreui/icons'*/}
-/*const handleSubmit = (e) => {
-  
-  e.preventDefault();
-  Axios.post(
-    `${process.env.REACT_APP_ROOT_URL}/login`,{
-   username: username,
-   password:password,
-  }).then((res) => {
-    // console.log(res.data);
-    if (Object.keys(res.data).length === 1) {
-      alert(res.data.msg);
-    } else {
-      if (res.data.logIn === true) {
-        sessionStorage.setItem('loggedIn', true);
-        sessionStorage.setItem('token', res.data.token);
-        //history.push(`/`);
-      } else if (res.data.logIn === false) {
-        alert(res.data.msg);
-      }
-    }
-  });
-};*/
-{/*var sectionStyle = {
-  width: "100%",
-  height: "400px",
-  backgroundImage: "url("+{image}+")"
-};*/}
-
-const Login = (props) => {
+const Login = () => {
   const history = useHistory();
-  const initialValues = { username: " ", password: " " };
-  const [formValues, setformValues] = useState(initialValues);
-  const [formErrors, setformErrors] = useState({});
-  const [IsSubmit, setIsSubmit] = useState(false);
-  //const notify = () => toast("success login");
-  //const [showSignUp, setShowSignUp] = useState(true);
-  //const [showSignIn, setShowSignIn] = useState(true);
+  const [uid, setuid] = useState('');
+  const [password, setpassword] = useState('');
 
-  /*const ToggleSignIn = () => {
-    setShowSignIn(true);
-    setShowSignUp(false);
-  };
-
-  const ToggleSignUp = () => {
-    setShowSignIn(false);
-    setShowSignUp(true);
-  };*/
-
-  //console.log(IsSubmit)
-  //console.log(setShowSignIn)
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setformValues({ ...formValues, [name]: value });
-  };
-  const handleSubmit = (e) => {
-    console.log(handleSubmit);
-    console.log(setIsSubmit);
+  //login function ------
+  async function login(e) {
     e.preventDefault();
-    //setformErrors(validate(formValues));
-    (setformErrors(validate(formValues)))
-
-    setIsSubmit(true);
+    let item = { uid, password };
+    let result = await axios.post(baseUrl + '/login/hospitalAdmin', item);
+    if (!result.data.token) {
+      alert('login failed');
+    } else {
+      localStorage.setItem('token', result.data.token);
+      localStorage.setItem('hName', result.data.hospitalName);
+      history.push('./dashboard');
+    }
   }
-  useEffect(() => {
-    console.log(IsSubmit);
-    if (Object.keys(formErrors).length === 0 && IsSubmit){
-
-    }
-  }, [formErrors])
-
-  const validate = (values) => {
-    const regexp = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{4,12}$/;
-    const errors = {}
-    if (values.username == 0) {
-      errors.username = "username is required";
-    }
-    if (values.password == 0) {
-      errors.password = "password is required";
-    }
-    else if (values.password.length < 4) {
-      errors.password = "Password must be more than 4 characters";
-    } else if (values.password.length > 6) {
-      errors.password = "Password cannot be more than 6 characters";
-    } else if (!regexp.test(values.password)) {
-      errors.password = "passsword must contain atleast one uppercase,lowercase,number,special character";
-    }
-    return errors;
-
-  }
-  const handleDirect = (event) => {
-    //event.preventDefault();
-    history.push('/dashboard');
-    //alert("successfully login");
-  };
-  
   return (
     <>
-      <div style={{
-        backgroundImage: `url("https://blog.hubspot.com/hubfs/become-medical-sales-rep.jpg")`,
-        backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat',
-        backgroundSize: 'cover',
-      }}>
-        <section className='vh-100 d-flex flex-column align-items-center justify-content-center '>
-          {Object.keys(formErrors).length === 0 && IsSubmit ? (handleDirect()
-          ) : (
-            <Link to="/register"></Link>
-          )}
-          
-          <div className='container-fluid' >
-            <div className='row d-flex justify-content-center align-items-center h-100'>
-              <div className='col-md-9 col-lg-6 col-xl-5'>
-                <img
-                  src='https://mdbootstrap.com/img/Photos/new-templates/bootstrap-login-form/draw2.png'
-                  className='img-fluid'
-                  alt=''
-                />
+      <div
+        style={{
+          backgroundImage: `url(${image})`,
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
+          backgroundSize: 'cover',
+        }}
+      >
+        <section className="vh-100 d-flex flex-column align-items-center justify-content-center ">
+          <div className="container-fluid">
+            <div className="row d-flex justify-content-center align-items-center h-100">
+              <div className="col-md-9 col-lg-6 col-xl-5">
+                <img src="" className="img-fluid" alt="" />
               </div>
-              <div className='col-md-8 col-lg-6 col-xl-4 offset-xl-1 py-5'>
-                <form onSubmit={handleSubmit}>
-                  <div className=''>
-                    <h2 className='mb-0 me-3 text-center'>Login Admin</h2>
-                    <hr />
-                    <div className='form-outline mb-2'>
-                      <label className='form-label' htmlFor='username'>
-                        <h5>Username : </h5>
-                      </label>
-                      <input
-                        type='text'
-                        name='username'
-                        value={formValues.username}
-                        onChange={handleChange}
-                        className='form-control form-control-sm'
-                        placeholder='Enter a username'
-                        autoComplete='username'
-                      />
+              <div
+                className=" logincontaner col-md-8 col-lg-6 col-xl-4 offset-xl-1 py-5"
+                style={{
+                  background: 'white',
+                  height: '30rem',
+                  borderRadius: '5px',
+                }}
+              >
+                <form onSubmit={login}>
+                  <div className="">
+                    <h2 className="mt-10 mb-0 me-3 text-center">e-Hospi</h2>
+                    <div
+                      className="col-sm-12 text align-center welcomeback "
+                      style={{
+                        fontSize: '15px',
+                        color: '#cdc8c8',
+                        marginLeft: '60px',
+                      }}
+                    >
+                      Welcome back! Please Login to Your Account{' '}
                     </div>
-                    <p style={{ color: "red" }}> {formErrors.username}</p>
-                    <div className='form-outline mb-2'>
-                      <label className='form-label' htmlFor='password'>
-                        <h5>Password:</h5>
-                      </label>
-                      <input
-                        type='text'
-                        name='password'
-                        value={formValues.password}
-                        onChange={handleChange}
-                        className='form-control form-control-sm'
-                        placeholder='Enter password'
-                        autoComplete='password'
-                      />
+                    <div className="mt-5">
+                      <div className="form-outline mb-2">
+                        <label className=" mb-0 form-label" htmlFor="username">
+                          <h5>Username : </h5>
+                        </label>
+                        <input
+                          type="text"
+                          name="uid"
+                          value={uid}
+                          onChange={(e) => {
+                            setuid(e.target.value);
+                          }}
+                          className="form-control form-control-sm"
+                        />
+                      </div>
+                      <div className=" form-outline ">
+                        <label className=" mb-0 form-label" htmlFor="password">
+                          <h5>Password:</h5>
+                        </label>
+                        <input
+                          type="text"
+                          name="password"
+                          value={password}
+                          onChange={(e) => {
+                            setpassword(e.target.value);
+                          }}
+                          className="form-control form-control-sm"
+                        />
+                      </div>
                     </div>
-                    <p style={{ color: "red" }}>{formErrors.password}</p>
-                    <div className='text-center text-lg-start mt-4 pt-2 text align-center'>
-                      <div className='row-12 text align-center form-outline mb-2'>
+                    <div
+                      className="loginform row text-center  mt-4 pt-2 text align-center d-flex "
+                      style={{ justifyContent: 'center' }}
+                    >
+                      <div className=" col-sm-6">
                         <button
                           type="submit"
-                          className='col-12  btn btn-primary btn-bg '
-                          style={{ paddingLeft: '4rem', paddingRight: '4rem' }}
+                          className=" login1 col-sm-6  btn btn-primary btn-bg "
+                          style={{ width: '200px' }}
                         >
                           Login
                         </button>
                       </div>
-                    </div>
-                    <div className="row d-flex">
-                      <div className="col-6 text align-center"
-                      >
-                      <Link to="/forgetpassword">forget password</Link>
-                      </div>
-                      <div className=" col-6 text align-center">
-                        <Link to="/register">Account Sign up!</Link>
-                       </div>
                     </div>
                   </div>
                 </form>
@@ -206,7 +113,6 @@ const Login = (props) => {
         </section>
       </div>
     </>
-  )
-}
-
+  );
+};
 export default Login;

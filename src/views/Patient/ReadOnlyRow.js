@@ -11,21 +11,27 @@ const ReadOnlyRow = ({ contact, handleEditClick, handleDeleteClick }) => {
             <td>{contact.LastVisit}</td>
             
             <td>
-               <span class="badge badge-success">Approved</span>
-                <button className="btn btn-sm px-0 py-0 btn-primary "
+                <div className="col-sm-12 d-flex text align-center">
+                    <div className="col-sm-">
+                <button className="badge badge-success">Approved</button></div>
+               {/*<span class="badge badge-success">Approved</span>*/}
+               <div className="col-sm-3">
+                <button className="btn btn-xm px-0 py-0 btn "
                     onClick={(event) => handleEditClick(event, contact)}
                 >
                     <i class="fas fa-edit"  ></i>
 
-                </button>
+                </button></div>
                 
-                
-                <button className="btn-danger btn-sm px-0 py-0 btn btn-sm"
+                <div className="col-sm-3">
+                <button className="btn btn-xm px-0 py-0 btn btn-xm"
                   onClick={() => handleDeleteClick(contact.id)}
                 >
                     <i class="fas fa-trash"></i>
 
                 </button>
+                </div>
+                </div>
 
                 
             </td>

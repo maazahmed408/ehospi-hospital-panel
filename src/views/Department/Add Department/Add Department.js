@@ -1,247 +1,162 @@
 import React, { useState } from 'react';
-import "src/asset/plugins/bootstrap/css/bootstrap.min.css";
-import "src/asset/css/main.css";
-import { Link } from 'react-router-dom';
-import data from "src/views/Department/mock-data.json";
-//import ReadOnlyRow from "src/views/Department/ReadOnlyRow";
-//import EditableRow from "src/views/Department/EditableRow";
-import { nanoid } from "nanoid";
 import { useHistory } from 'react-router-dom';
+import 'src/asset/plugins/bootstrap/css/bootstrap.min.css';
+import 'src/asset/css/main.css';
+import { baseUrl } from 'src/views/config.js/baseUrl';
+import axios from 'axios';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+toast.configure();
+require('dotenv').config();
 
 const Add_Department = () => {
-    const history = useHistory();
-  {/*const initialValues = {departmentname: " ",  description: ""};
-  const [formValues, setformValues] = useState(initialValues);
-  const [formErrors, setformErrors] = useState({});
-  const [IsSubmit, setIsSubmit] = useState(false);
-  const handleChange = (e) =>{
-    const {name, value} = e.target;
-    setformValues({...formValues, [name]: value});
+  const [r, setr] = useState(0);
+  const [department, setdepartment] = useState('');
+  const [arr, setArr] = useState([]);
+  const [check, setCheck] = useState([]);
+  const [disable, setDisable] = useState(false);
+  const [buttonText, setButtonText] = useState('Save');
+  const history = useHistory();
+
+  const resultData = async () => {
+    const result = await axios.get(baseUrl + '/hospitalAdmin/getDepartment', {
+      headers: {
+        Authorization: 'Bearer ' + localStorage.getItem('token'),
+      },
+    });
+    setdepartment(result.data);
   };
-  const handleSubmit = (e)=>{
-    console.log(handleSubmit);
-    console.log(setIsSubmit);
+
+  React.useEffect(() => {
+    resultData();
+  }, [r]);
+
+  const handleCheck = (e) => {
+    let clicked = e.target.value;
+    setCheck((prevState) => {
+      let isIndexFound = prevState.indexOf(clicked);
+      if (isIndexFound === -1) {
+        prevState.push(clicked);
+        return prevState;
+      } else {
+        prevState.splice(isIndexFound, 1);
+        return prevState;
+      }
+    });
+    setArr(check);
+  };
+
+  const navigateTo = () => history.push('/Department/All Department');
+
+  async function handleClick(e) {
     e.preventDefault();
-    (setformErrors(validate(formValues)))
-    
-    setIsSubmit(true);
-  }
-  useEffect(()=>{
-    console.log(IsSubmit);
-    if(Object.keys(formErrors).length === 0 && IsSubmit){
-      console.log(formErrors);
-    }   
-  }, [formErrors])
+    setDisable(true);
+    setButtonText('Loading...');
 
-  const validate=(values)=>{
-    const errors={}
-    if(values.departmentname ==0){
-      errors.departmentname = "Department name is required";
-    }
-    if(values.description == 0){
-      errors.description = "description is required";
-    }
-    
-    return errors;
-    
-  }*/}
-
-  //edit
-  const [contacts, setContacts] = useState(data);
-    const [addFormData, setAddFormData] = useState({
-        department_name: "",
-        status: "",
-    });
-    const [editFormData, setEditFormData] = useState({
-        department_name: "",
-        status: "",
-
-    });
-
-    const [editContactId, setEditContactId] = useState(null);
-    const handleAddFormChange = (event) => {
-        event.preventDefault();
-
-        const fieldName = event.target.getAttribute("name");
-        const fieldValue = event.target.value;
-
-        const newFormData = { ...addFormData };
-        newFormData[fieldName] = fieldValue;
-        setAddFormData(newFormData);
-    };
-
-    const handleEditFormChange = (event) => {
-        event.preventDefault();
-
-        const fieldName = event.target.getAttribute("name");
-        const fieldValue = event.target.value;
-
-        const newFormData = { ...editFormData };
-        newFormData[fieldName] = fieldValue;
-
-        setEditFormData(newFormData);
-    };
-    
-    const handleAddFormSubmit = () => {
-        //event.preventDefault()
-        const newContact = {
-            id: nanoid(),
-            department_name: addFormData.department_name,
-            status: addFormData.status,
-
-        };
-        const newContacts = [...contacts, newContact];
-        setContacts(newContacts);
-       // handleDirect();
-    };
-
-    const handleEditFormSubmit = (event) => {
-        event.preventDefault();
-
-        const editedContact = {
-            id: editContactId,
-            department_name: editFormData.department_name,
-            status: editFormData.status,
-
-        };
-
-        const newContacts = [...contacts];
-        const index = contacts.findIndex((contact) => contact.id === editContactId);
-
-        newContacts[index] = editedContact;
-
-        setContacts(newContacts);
-        setEditContactId(null);
-    };
-
-    const handleEditClick = (event, contact) => {
-        event.preventDefault();
-        setEditContactId(contact.id);
-        const formValues = {
-            department_name: contact.department_name,
-            status: contact.status,
-
-        };
-
-        setEditFormData(formValues);
-    };
-
-   const handleCancelClick = () => {
-        setEditContactId(null);
-    };
-
-    const handleDeleteClick = (contactId) => {
-        const newContacts = [...contacts];
-        const index = contacts.findIndex((contact) => contact.id === contactId);
-        newContacts.splice(index, 1);
-        setContacts(newContacts);
-    };
-    const handleDirect = (event) => {
-        history.push('/All department');
-        
-      };
-    {/*const formsubmit =()=>{
-        if(handleAddFormSubmit){
-            return  (handleDirect());
-        }  
-    };*/}
-
-    return (
-        <>
-        <div>
-            <form onSubmit={handleAddFormSubmit}>
-                <section className="content">
-                    <div className="container-fluid">
-                        <div className="block-header">
-                            <h2>Add department</h2>
-                        </div>
-                        
-                          {/*{Object.keys(formErrors).length === 0 && IsSubmit ? (handleAddFormSubmit
-                                    ):(
-                                    <Link to="/register"></Link>
-                                    )}*/}
-                          <div className="row clearfix">
-                            <div className="col-lg-12 col-md-12 col-sm-12 ">
-                                <div className="card">
-                                    <div className="header">
-                                        <h2>add department </h2>
-                                    </div>
-                                    <div className="body">
-                                        <div className="row clearfix">
-                                            <div className="col-sm-6 ">
-                                                <div className="form-group1">
-                                                    <lable>Department name</lable>
-                                                    <div className="form-line1">
-                                                        <input
-                                                         type='text'
-                                                          name='department_name'
-                                                          required="required"
-                                                          onChange={handleAddFormChange}
-                                                          className='form-control '
-                                                          placeholder='Enter a department_name'
-                                                          autoComplete='department name'
-                                                         />
-                                                    </div>
-                                                   {/* <p style={{color: "red"}}> {formErrors.departmentname}</p>*/}
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className="row clearfix">
-                                            <div className="col-sm-6">
-                                                <div className="form-group1">
-                                                    <lable>status</lable>   
-                                                    <div className="form-line1">
-                                                        <input
-                                                         name="status" 
-                                                         required="required"
-                                                         onChange={handleAddFormChange}
-                                                         placeholder= "Enter status"
-                                                         className="form-control no-resize"
-                                                         />
-                                                    </div>
-                                                </div>
-                                               {/* <p style={{color: "red"}}>{formErrors.description }</p>*/}
-                                            </div>
-                                            <div className="row-sm-12  d-flex">
-                                                {/*<div class=" col-8 form-group1">
-                                                    <div >
-                                                        <div>
-                                                            <label class="display-block">Department Status</label>
-                                                        </div>
-                                                        <div class="form-check form-check-inline">
-                                                            <input class="form-check-input" type="radio" name="status"   id="product_active" value="option1"  />
-                                                            <label class="form-check-label"  required for="product_active">Active</label>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-check form-check-inline">
-                                                        <input class="form-check-input" type="radio" name="status" id="product_inactive" value="option2" checked="" />
-                                                        <label class="form-check-label" for="product_inactive">Inactive</label>
-                                                    </div>
-                                               </div>*/}
-
-                                                
-                                             </div>
-                                             <div className="col-sm-12  text align-center">
-                                                <button  type="submit" className="btn btn-raised g-bg-cyan">Create Department</button>
-                                                </div>
-                                            
-                                        </div>
-                                        
-                                     </div>
-                                    
-                                </div>
-                            </div>
-                            
-                        </div>
-                        
-                    </div>
-                </section>
-            </form>
-
-        </div>
-
-
-        </>
+    let item = arr;
+    let result = await axios.post(
+      baseUrl + '/hospitalAdmin/addDepartment',
+      { arr: item },
+      {
+        headers: {
+          Authorization: 'Bearer ' + localStorage.getItem('token'),
+        },
+      },
     );
+    if (result) {
+      setr(r + 1);
+      setButtonText('Save...');
+      setDisable(false);
+      toast.success('Department added successfully', {
+        autoClose: 600,
+        theme: 'colored',
+      });
+      navigateTo();
+    }
+  }
+
+  return (
+    <>
+      <div>
+        <section class="content">
+          <div class="container-fluid">
+            <div>
+              <h2
+                className="Addbed"
+                style={{
+                  color: '#056078',
+                  fontSize: '20px',
+                  paddingTop: '30px',
+                }}
+              >
+                Select all departments :
+              </h2>
+              <div
+                className="services col d-flex"
+                style={{ paddingTop: '1rem' }}
+              >
+                <div className="col-sm-4" style={{ paddingRight: '12px' }}>
+                  <ul>
+                    <div
+                      className=""
+                      style={{
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        flexDirection: 'row',
+                        listStyle: 'none',
+                      }}
+                    >
+                      <div className="r-flex">
+                        {department.length !== 0 &&
+                          department.map((e) => {
+                            return (
+                              <li>
+                                <input
+                                  type="checkbox"
+                                  onChange={handleCheck}
+                                  value={e}
+                                  id={e}
+                                  key={e}
+                                />
+                                <label
+                                  className="r-flex"
+                                  htmlFor={e}
+                                  value={e}
+                                  key={e}
+                                  style={{
+                                    paddingInline: '2rem',
+                                  }}
+                                >
+                                  {e}
+                                </label>
+                              </li>
+                            );
+                          })}
+                      </div>
+                    </div>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <button
+              className="submit2"
+              style={{
+                background: '#056078',
+                color: 'white',
+                marginLeft: '25rem',
+                borderRadius: '5px',
+              }}
+              type="submit"
+              disabled={disable}
+              onClick={handleClick}
+            >
+              {buttonText}
+            </button>
+          </div>
+        </section>
+      </div>
+    </>
+  );
 };
 export default Add_Department;

@@ -9,21 +9,27 @@ const ReadOnlyRow = ({ contact, handleEditClick, handleDeleteClick }) => {
             <td>{contact.AvailableTime}</td>
             
             <td>
-                <button className="btn btn-sm px-0 py-0 btn-primary "
+              <div className="col-sm-8 d-flex text align-center">
+                  <div className="col-sm-4">
+                <button className="btn btn-sm px-0 py-0 btn "
                     onClick={(event) => handleEditClick(event, contact)}
                 >
                     <i class="fas fa-edit"  ></i>
 
                 </button>
+                </div>
+
                 
                 
-                
-                <button className="btn-danger btn-sm px-0 py-0 btn btn-sm"
+                <div className="col-sm-4">
+                <button className="btn btn-xm px-0 py-0 btn btn-xm"
                   onClick={() => handleDeleteClick(contact.id)}
                 >
-                    <i class="fas fa-trash"></i>
+                    <i class="fas fa-trash" ></i>
 
                 </button>
+                </div>
+                </div>
 
                 
             </td>

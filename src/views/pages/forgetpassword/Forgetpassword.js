@@ -1,74 +1,82 @@
-import React, { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import React, { useState } from 'react';
+import image from 'src/assets/images/avatars/Bg-Login.png';
+import 'src/asset/css/main.css';
 
 import { Link } from 'react-router-dom';
-import { dashboard } from 'src/views/dashboard/Dashboard'
-
 
 const Forgetpassword = (props) => {
-  const history = useHistory();
-  
-  
+  const [email, setemail] = useState('');
+  const handleSubmit = (e) => {
+    setemail('');
+    e.preventDefault();
+  };
+
   return (
     <>
-      <div style={{
-        backgroundImage: `url("https://blog.hubspot.com/hubfs/become-medical-sales-rep.jpg")`,
-        backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat',
-        backgroundSize: 'cover',
-      }}>
-        <section className='vh-100 d-flex flex-column align-items-center justify-content-center '>
-         
-          
-          <div className='container-fluid' >
-            <div className='row d-flex justify-content-center align-items-center h-100'>
-              <div className='col-md-9 col-lg-6 col-xl-5'>
-                <img
-                  src='https://mdbootstrap.com/img/Photos/new-templates/bootstrap-login-form/draw2.png'
-                  className='img-fluid'
-                  alt=''
-                />
+      <div
+        style={{
+          backgroundImage: `url(${image})`,
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
+          backgroundSize: 'cover',
+        }}
+      >
+        <section className="vh-100 d-flex flex-column align-items-center justify-content-center  ">
+          <div className="container-fluid">
+            <div className="row d-flex justify-content-center align-items-center h-100">
+              <div className="col-md-9 col-lg-6 col-xl-5">
+                <img src="" className="img-fluid" alt="" />
               </div>
-              <div className='col-md-8 col-lg-6 col-xl-4 offset-xl-1 py-5'>
-                
-                  <div className=''>
-                    <h2 className='mb-0 me-3 text-center'>Forget password</h2>
+              <div
+                className="col-md-8 col-lg-6 col-xl-4 offset-xl-2 py-4"
+                style={{
+                  background: 'white',
+                  height: '30rem',
+                  borderRadius: '5px',
+                }}
+              >
+                <form onSubmit={handleSubmit}>
+                  <div className="">
+                    <h2 className="mt-10 me-3 text-center">eHospi</h2>
+                    <div className="text align-center">
+                      <h6 style={{ fontSize: '13px', marginLeft: '35px' }}>
+                        Enter your Email and we send you a password reset Link
+                      </h6>
+                    </div>
                     <hr />
-                    <div className='form-outline mb-2'>
-                      <label className='form-label' htmlFor='username'>
-                        <h5>Register Email:</h5>
-                      </label>
+                    <div className="form-outline mb-2">
                       <input
-                        type='text'
-                        name='Email'
-                        required= 'required'
-                        className='form-control form-control-sm'
-                        placeholder='Enter a your Resister Email'
-                        autoComplete='Email'
+                        type="text"
+                        name="Email"
+                        value={email}
+                        onChange={(e) => {
+                          setemail(e.target.value);
+                        }}
+                        required="required"
+                        className="form-control form-control-sm"
+                        placeholder="Enter your Email"
                       />
                     </div>
-                    <div className='text-center text-lg-start mt-4 pt-2 text align-center'>
-                      <div className='row-12 text align-center form-outline mb-2'>
-                        <button
-                          type="submit"
-                          className='col-12  btn btn-primary btn-bg '
-                          style={{ paddingLeft: '4rem', paddingRight: '4rem' }}
-                        >
-                          otp Send
-                        </button>
+
+                    <div className="row d-flex  text-center text-lg-start  text align-center ">
+                      <div className="col-sm-6">
+                        <h6 style={{ fontSize: '13px' }}>
+                          Time Remaining 00.30 sec
+                        </h6>
+                      </div>
+                      <div className=" resetcontainer col-sm-6">
+                        <Link to="/Resendotp">Resent otp</Link>
                       </div>
                     </div>
-                   
-                    
                   </div>
-                
+                </form>
               </div>
             </div>
           </div>
         </section>
       </div>
     </>
-  )
-}
+  );
+};
 
 export default Forgetpassword;
