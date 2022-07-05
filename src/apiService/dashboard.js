@@ -1,5 +1,6 @@
 import axios from 'axios';
-const apiURL = 'https://ehospi-app.herokuapp.com/';
+import {baseUrl} from "../views/config.js/baseUrl"
+const apiURL = baseUrl;
 
 export const getIncome = async (data) => {
   try {
