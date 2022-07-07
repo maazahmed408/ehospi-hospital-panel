@@ -2,6 +2,10 @@ import React, { useState, Fragment, useEffect } from 'react';
 import 'src/asset/plugins/bootstrap/css/bootstrap.min.css';
 import 'src/asset/css/main.css';
 import { baseUrl } from 'src/views/config.js/baseUrl';
+import { getBedTypeImages } from '../../../apiService/photos';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEye, faCircleXmark } from '@fortawesome/free-solid-svg-icons';
+import NewModal from 'src/components/NewModal';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -10,13 +14,22 @@ toast.configure();
 const BedType_List = () => {
   const [valueData, setvalueData] = useState([]);
   const [r, setr] = useState(0);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [images, setImages] = useState([]);
+  const [selectedBedId, setSelectedBedId] = useState('');
+
   const resultData = async () => {
     const result = await axios.get(baseUrl + '/hospitalAdmin/getBedTypes', {
       headers: {
         Authorization: 'Bearer ' + localStorage.getItem('token'),
       },
     });
-    setvalueData(result.data);
+    console.log(result.data);
+    if (result.status === 200 && result.data.message !== 'No beds found') {
+      setvalueData(result.data);
+    } else {
+      setvalueData([]);
+    }
   };
   useEffect(() => {
     resultData();
@@ -26,16 +39,14 @@ const BedType_List = () => {
       'Are you sure? You want to delete: ' + value.bedName,
     );
     if (answer) {
-      const result = await axios.put(
+      const result = await axios.delete(
         baseUrl + '/hospitalAdmin/deleteBedTypes/' + value._id,
-        {},
         {
           headers: {
             Authorization: 'Bearer ' + localStorage.getItem('token'),
           },
         },
       );
-
       if (result.data.message === 'Deleted sucessfully') {
         toast.error('Department deleted successfully', {
           autoClose: 600,
@@ -45,6 +56,17 @@ const BedType_List = () => {
       }
     }
   };
+
+  const handleViewImages = (id) => {
+    setSelectedBedId(id);
+    getBedTypeImages(id).then((res) => {
+      if (res.data.images) {
+        setImages(res.data.images);
+      }
+    });
+    setModalVisible(true);
+  };
+
   return (
     <>
       <div>
@@ -75,14 +97,15 @@ const BedType_List = () => {
                             <th>Facilities charges</th>
                             <th>Bed charges</th>
                             <th>Total charges</th>
+                            <th>Number Of Beds</th>
                             <th>Actions</th>
                           </tr>
                         </thead>
                         <tfoot></tfoot>
                         <tbody style={{ width: '5px' }}>
-                          {valueData.length !== 0 &&
-                            valueData.map((value) => (
-                              <tr>
+                          {valueData &&
+                            valueData.map((value, index) => (
+                              <tr key={index}>
                                 <td>{value.bedName}</td>
                                 <td>{value.amenities.length}</td>
                                 <td>{value.facilities.length}</td>
@@ -90,12 +113,30 @@ const BedType_List = () => {
                                 <td>{value.charges.facilitiesCharges}</td>
                                 <td>{value.charges.bedCharges}</td>
                                 <td>{value.charges.totalCharges}</td>
-                                <td style={{ textAlign: 'center' }}>
+                                <td>{value.numberOfBeds}</td>
+                                <td
+                                  style={{
+                                    textAlign: 'center',
+                                  }}
+                                >
+                                  <button
+                                    onClick={() => handleViewImages(value._id)}
+                                    className="btn btn-xm px-1 py-1 btn btn-xm"
+                                    style={{ marginRight: '1.5rem' }}
+                                  >
+                                    <FontAwesomeIcon
+                                      style={{ color: 'green' }}
+                                      icon={faEye}
+                                    />
+                                  </button>
                                   <button
                                     onClick={() => hAdminDelAction(value)}
-                                    className="btn btn-xm px-1 py-1 btn btn-xm"
+                                    className="btn btn-xm px-0 py-1 btn btn-xm text-align left"
                                   >
-                                    <i class="fas fa-trash"></i>
+                                    <FontAwesomeIcon
+                                      style={{ color: 'red' }}
+                                      icon={faCircleXmark}
+                                    />
                                   </button>
                                 </td>
                               </tr>
@@ -110,6 +151,12 @@ const BedType_List = () => {
           </div>
         </section>
       </div>
+      <NewModal
+        modalVisible={modalVisible}
+        setModalVisible={setModalVisible}
+        images={images}
+        bedId={selectedBedId}
+      />
     </>
   );
 };

@@ -1,12 +1,12 @@
 import axios from 'axios';
-import {baseUrl} from "../views/config.js/baseUrl"
+import { baseUrl } from '../views/config.js/baseUrl';
 const apiURL = baseUrl;
 
 export const getIncome = async (data) => {
   try {
     console.log('Inside login service data = ', data);
 
-    let URL = apiURL + 'hospitalAdmin/getIncome';
+    let URL = apiURL + '/hospitalAdmin/getIncome';
     console.log('API URL endpoint = ', URL);
     let config = {
       headers: {
@@ -28,7 +28,7 @@ export const getAllBeds = async (data) => {
   try {
     console.log('Inside login service data = ', data);
 
-    let URL = apiURL + 'hospitalAdmin/getAllBeds';
+    let URL = apiURL + '/hospitalAdmin/getAllBeds';
     let config = {
       headers: {
         Authorization: 'Bearer ' + localStorage.getItem('token'),
@@ -50,7 +50,7 @@ export const getAllPatients = async (data) => {
   try {
     console.log('Inside login service data = ', data);
 
-    let URL = apiURL + 'hospitalAdmin/getAllPatients';
+    let URL = apiURL + '/hospitalAdmin/getAllPatients';
     let config = {
       headers: {
         Authorization: 'Bearer ' + localStorage.getItem('token'),

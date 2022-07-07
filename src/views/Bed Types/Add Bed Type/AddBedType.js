@@ -23,6 +23,7 @@ const Add_BedTypes = () => {
   const [facilities, setFacilities] = useState([]);
   const [checkedValue, setCheckedValue] = useState();
   const [file, setFile] = useState();
+  const [bedCount, setBedCount] = useState();
   const history = useHistory();
   const navigateTo = () => {
     history.push('/Bed Types/Bed Type List');
@@ -74,22 +75,24 @@ const Add_BedTypes = () => {
     setC('Loading...');
     setDisable(true);
     let item = { bedName },
-      item1 = amenities,
-      item2 = facilities,
       item3 = { amenitiesCharges, facilitiesCharges, bedCharges },
       item4 =
         Number(item3.amenitiesCharges) +
         Number(item3.facilitiesCharges) +
         Number(item3.bedCharges);
 
-    data.append('image', file);
     data.append('amenities[]', amenities);
     data.append('facilities[]', facilities);
     data.append('bedName', item.bedName);
+    data.append('numberOfBeds', bedCount);
     data.append('amenitiesCharges', Number(item3.amenitiesCharges));
     data.append('facilitiesCharges', Number(item3.facilitiesCharges));
     data.append('bedCharges', Number(item3.bedCharges));
     data.append('totalCharges', Number(item4));
+    if (file) {
+      data.append('image', file);
+    }
+
     console.log(data);
     let result = await axios.post(
       baseUrl + '/hospitalAdmin/addBedTypes',
@@ -187,6 +190,17 @@ const Add_BedTypes = () => {
                       placeholder="Bed Charges"
                       onChange={(e) => {
                         setbedCharges(e.target.value);
+                      }}
+                    />
+                    <input
+                      style={{ marginLeft: '30px', paddingTop: '5px' }}
+                      type="number"
+                      name="numberOfBeds"
+                      required="required"
+                      value={bedCount}
+                      placeholder="Number Of Beds"
+                      onChange={(e) => {
+                        setBedCount(e.target.value);
                       }}
                     />
                     <input
