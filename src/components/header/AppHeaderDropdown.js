@@ -22,7 +22,7 @@ const AppHeaderDropdown = () => {
     <CDropdown variant="nav-item">
       <CDropdownToggle placement="bottom-end" className="py-0" caret={false}>
         <CIcon icon={cilUser} className="me-2" style={{ fontWeight: '10' }} />
-        {localStorage.getItem('hName')}
+        {localStorage.getItem('uid')}
       </CDropdownToggle>
       <CDropdownMenu
         className="pt-0"

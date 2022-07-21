@@ -115,9 +115,7 @@ const Pending_Booking = () => {
                             <th>Policy_Number</th>
                             <th>EmployerName</th>
                             <th>EmployerID</th>
-                            <th style={{ backgroundColor: 'green' }}>
-                              Permission
-                            </th>
+                            <th>Permission</th>
                           </tr>
                         </thead>
                         <tfoot></tfoot>

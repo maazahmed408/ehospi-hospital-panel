@@ -135,7 +135,11 @@ const Add_BedTypes = () => {
         },
       },
     );
-    setAllAmenities(result.data);
+    if (Array.isArray(result.data)) {
+      setAllAmenities(result.data);
+    } else {
+      console.log(result.data);
+    }
   };
 
   const resData = async () => {
@@ -147,7 +151,12 @@ const Add_BedTypes = () => {
         },
       },
     );
-    setAllFacilities(result.data);
+
+    if (Array.isArray(result.data)) {
+      setAllFacilities(result.data);
+    } else {
+      console.log(result.data);
+    }
   };
   useEffect(() => {
     resultData();

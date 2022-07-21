@@ -12,6 +12,7 @@ const Facilities_Price = () => {
   const [disable, setDisable] = useState(false);
   const [editFormData, setEditFormData] = useState('');
   console.log(setEditFormData);
+
   const resultData = async () => {
     const result = await axios.get(
       baseUrl + '/hospitalAdmin/getFullFacilities',
@@ -25,13 +26,16 @@ const Facilities_Price = () => {
     let data = [];
 
     console.log('API calling');
-    for (let i = 0; i < result.data.length; i++) {
-      let p = result.data[i];
-      p.input = '';
-      p.itemIndex = i;
-      data.push(p);
+
+    if (Array.isArray(data)) {
+      for (let i = 0; i < result.data.length; i++) {
+        let p = result.data[i];
+        p.input = '';
+        p.itemIndex = i;
+        data.push(p);
+      }
+      setAllFacilities(data);
     }
-    setAllFacilities(data);
   };
   useEffect(() => {
     resultData();

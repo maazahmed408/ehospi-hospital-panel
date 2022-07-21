@@ -14,7 +14,7 @@ const Hospitalform = () => {
   const [city, setcity] = useState('');
   const [state, setstate] = useState('');
   const [contactNo, setcontactNo] = useState('');
-  const [numberOfBeds, setNumberOfBeds] = useState('');
+  // const [numberOfBeds, setNumberOfBeds] = useState('');
   const api = async (e) => {
     e.preventDefault();
     let result = await axios.post(baseUrl + '/hospitalSignup', {
@@ -24,7 +24,7 @@ const Hospitalform = () => {
       city: city,
       state: state,
       phone: contactNo,
-      numberOfBeds: numberOfBeds,
+      // numberOfBeds: numberOfBeds,
     });
     if (result) {
       toast.success('Thanks for registering us !');
@@ -34,7 +34,7 @@ const Hospitalform = () => {
       setcity('');
       setstate('');
       setcontactNo('');
-      setNumberOfBeds('');
+      // setNumberOfBeds('');
     }
   };
 
@@ -175,7 +175,7 @@ const Hospitalform = () => {
                               className="form-control form-control-sm"
                             />
                           </div>
-                          <div className="mb-2 col-sm-6">
+                          {/* <div className="mb-2 col-sm-6">
                             <lable For="First Name">Number of Beds</lable>
                             <input
                               type="text"
@@ -186,7 +186,7 @@ const Hospitalform = () => {
                               onChange={(e) => setNumberOfBeds(e.target.value)}
                               className="form-control form-control-sm"
                             />
-                          </div>
+                          </div> */}
                         </div>
                       </div>
                     </div>

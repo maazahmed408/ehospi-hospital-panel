@@ -18,8 +18,15 @@ const Services_List = () => {
         Authorization: 'Bearer ' + localStorage.getItem('token'),
       },
     });
-    setvalueData(result.data);
+
+    if (!result.data.message) {
+      setvalueData(result.data);
+    } else {
+      console.log(result.data);
+    }
   };
+
+  console.log(valueData);
 
   React.useEffect(() => {
     resultData();
@@ -81,7 +88,7 @@ const Services_List = () => {
                         </thead>
                         <tfoot></tfoot>
                         <tbody style={{ width: '5px' }}>
-                          {valueData.length !== 0 &&
+                          {valueData &&
                             valueData.map((value) => (
                               <tr>
                                 <td>{value.services}</td>

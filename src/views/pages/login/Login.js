@@ -21,6 +21,7 @@ const Login = () => {
     } else {
       localStorage.setItem('token', result.data.token);
       localStorage.setItem('hName', result.data.hospitalName);
+      localStorage.setItem('uid', uid);
       history.push('./dashboard');
     }
   }
