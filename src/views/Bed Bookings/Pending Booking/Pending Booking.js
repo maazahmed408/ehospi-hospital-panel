@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import 'src/asset/plugins/bootstrap/css/bootstrap.min.css';
+import { FaFileDownload } from 'react-icons/fa';
 import 'src/asset/css/main.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck, faCircleXmark } from '@fortawesome/free-solid-svg-icons';
@@ -116,6 +117,9 @@ const Pending_Booking = () => {
                             <th>EmployerName</th>
                             <th>EmployerID</th>
                             <th>Permission</th>
+                            <th>Prescription</th>
+                            <th>Id Proof</th>
+                            <th>Insurance</th>
                           </tr>
                         </thead>
                         <tfoot></tfoot>
@@ -142,6 +146,31 @@ const Pending_Booking = () => {
                                 <td>{value.policyNumber}</td>
                                 <td>{value.employerName}</td>
                                 <td>{value.employerId}</td>
+
+                                <td align="center">
+                                  <a href={value.prescriptionUrl} download>
+                                    <FaFileDownload
+                                      size={24}
+                                      style={{ cursor: 'pointer' }}
+                                    />
+                                  </a>
+                                </td>
+                                <td align="center">
+                                  <a href={value.idProofUrl} download>
+                                    <FaFileDownload
+                                      size={24}
+                                      style={{ cursor: 'pointer' }}
+                                    />
+                                  </a>
+                                </td>
+                                <td align="center">
+                                  <a href={value.insuranceUrl} download>
+                                    <FaFileDownload
+                                      size={24}
+                                      style={{ cursor: 'pointer' }}
+                                    />
+                                  </a>
+                                </td>
                                 <td
                                   style={{
                                     textAlign: 'right',

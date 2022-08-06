@@ -1,4 +1,5 @@
 import React, { useState, Fragment, useEffect } from 'react';
+import { FaFileDownload } from 'react-icons/fa';
 import 'src/asset/plugins/bootstrap/css/bootstrap.min.css';
 import 'src/asset/css/main.css';
 import { baseUrl } from 'src/views/config.js/baseUrl';
@@ -28,7 +29,7 @@ const All_Booking = () => {
               <div className="col-lg-12 col-md-12 col-sm-12 ">
                 <div className="card">
                   <div className="header">
-                    <h2>All Bookings List </h2>
+                    <h2>All Bookings List</h2>
                   </div>
                   <div class="body table-responsive">
                     <form>
@@ -61,6 +62,9 @@ const All_Booking = () => {
                             <th>Policy_Number</th>
                             <th>EmployerName</th>
                             <th>EmployerID</th>
+                            <th>Prescription</th>
+                            <th>Id Proof</th>
+                            <th>Insurance</th>
                           </tr>
                         </thead>
                         <tfoot></tfoot>
@@ -87,6 +91,30 @@ const All_Booking = () => {
                                 <td>{value.policyNumber}</td>
                                 <td>{value.employerName}</td>
                                 <td>{value.employerId}</td>
+                                <td align="center">
+                                  <a href={value.prescriptionUrl} download>
+                                    <FaFileDownload
+                                      size={24}
+                                      style={{ cursor: 'pointer' }}
+                                    />
+                                  </a>
+                                </td>
+                                <td align="center">
+                                  <a href={value.idProofUrl} download>
+                                    <FaFileDownload
+                                      size={24}
+                                      style={{ cursor: 'pointer' }}
+                                    />
+                                  </a>
+                                </td>
+                                <td align="center">
+                                  <a href={value.insuranceUrl} download>
+                                    <FaFileDownload
+                                      size={24}
+                                      style={{ cursor: 'pointer' }}
+                                    />
+                                  </a>
+                                </td>
                               </tr>
                             ))}
                         </tbody>

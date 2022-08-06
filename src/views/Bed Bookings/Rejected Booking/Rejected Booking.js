@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import 'src/asset/plugins/bootstrap/css/bootstrap.min.css';
+import { FaFileDownload } from 'react-icons/fa';
 import 'src/asset/css/main.css';
 import { baseUrl } from 'src/views/config.js/baseUrl';
 import axios from 'axios';
@@ -94,6 +95,9 @@ const Rejected_Booking = () => {
                             <th>Policy_Number</th>
                             <th>EmployerName</th>
                             <th>EmployerID</th>
+                            <th>Prescription</th>
+                            <th>Id Proof</th>
+                            <th>Insurance</th>
                             <th>Action</th>
                           </tr>
                         </thead>
@@ -121,6 +125,30 @@ const Rejected_Booking = () => {
                                 <td>{value.policyNumber}</td>
                                 <td>{value.employerName}</td>
                                 <td>{value.employerId}</td>
+                                <td align="center">
+                                  <a href={value.prescriptionUrl} download>
+                                    <FaFileDownload
+                                      size={24}
+                                      style={{ cursor: 'pointer' }}
+                                    />
+                                  </a>
+                                </td>
+                                <td align="center">
+                                  <a href={value.idProofUrl} download>
+                                    <FaFileDownload
+                                      size={24}
+                                      style={{ cursor: 'pointer' }}
+                                    />
+                                  </a>
+                                </td>
+                                <td align="center">
+                                  <a href={value.insuranceUrl} download>
+                                    <FaFileDownload
+                                      size={24}
+                                      style={{ cursor: 'pointer' }}
+                                    />
+                                  </a>
+                                </td>
                                 <td style={{ textAlign: 'center' }}>
                                   <button
                                     onClick={() => delAction(value)}
